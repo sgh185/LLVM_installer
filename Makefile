@@ -6,8 +6,8 @@ BACKENDS="all"  #"X86;ARM;RISCV"
 TESTS="test" #"notest"
 EXTRAS="extra" #"noextra"
 EXTRA_CMAKE_OPTIONS="" 
-LLVM_URL=https://github.com/llvm/llvm-project/releases/download/llvmorg-
-CLANG_ADDR=clang-$(LLVM_VERSION).src.tar.xz
+LLVM_URL=https://releases.llvm.org/
+CLANG_ADDR=cfe-$(LLVM_VERSION).src.tar.xz
 
 
 all: archive src
