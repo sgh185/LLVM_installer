@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-CMAKE="cmake3"
+CMAKE="cmake"
 
 function compile_install {
   echo "LLVM_Installer:   Compiling LLVM" ;
