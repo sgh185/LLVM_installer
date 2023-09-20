@@ -1,6 +1,7 @@
 #!/bin/bash -e
 
 function check_file {
+  ls .
   if ! test -f $1 ; then
     echo "ERROR: Download \"$1\" and store it in \"$origDir\"" ;
     exit 1;
@@ -53,6 +54,14 @@ origDir=`pwd` ;
 # Create directories
 mkdir -p archive ;
 
+# Unpack CMAKE 
+if ! test -d cmake-${LLVM_VER}.src ; then
+  check_file cmake-${LLVM_VER}.src.tar.xz ; 
+  tar xf cmake-${LLVM_VER}.src.tar.xz ;
+  mv cmake-${LLVM_VER}.src.tar.xz ${origDir}/archive ;
+  mv cmake-${LLVM_VER}.src cmake ;
+fi
+
 # Unpack the LLVM framework
 if ! test -d llvm-${LLVM_VER}.src ; then
   check_file llvm-${LLVM_VER}.src.tar.xz ; 
@@ -64,10 +73,12 @@ fi
 # Unpack the other packages
 add_llvm_block tools clang ;
 if test $extras == "extra" ; then
+  echo "none" ;
   #add_llvm_block tools lldb ;
-  add_llvm_block tools polly ;
-  add_llvm_block "tools/clang/tools" clang-tools-extra extra ;
-  add_llvm_block projects compiler-rt ;
-  add_llvm_block projects openmp ;
+  #add_llvm_block tools polly ;
+  #add_llvm_block "tools/clang/tools" clang-tools-extra extra ;
+  #add_llvm_block projects compiler-rt ;
+  # add_llvm_block projects openmp ;
   #add_llvm_block projects test-suite ;
 fi
+

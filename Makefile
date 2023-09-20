@@ -1,11 +1,11 @@
 LLVM_VERSION=$(notdir $(shell pwd))
-MINIMUM_LLVM_PACKAGES=llvm-$(LLVM_VERSION).src.tar.xz clang-$(LLVM_VERSION).src.tar.xz openmp-$(LLVM_VERSION).src.tar.xz
-EXTRA_PACKAGES=polly-$(LLVM_VERSION).src.tar.xz clang-tools-extra-$(LLVM_VERSION).src.tar.xz compiler-rt-$(LLVM_VERSION).src.tar.xz
-PACKAGES=$(MINIMUM_LLVM_PACKAGES) $(EXTRA_PACKAGES)
+MINIMUM_LLVM_PACKAGES=llvm-$(LLVM_VERSION).src.tar.xz clang-$(LLVM_VERSION).src.tar.xz # openmp-$(LLVM_VERSION).src.tar.xz
+EXTRA_PACKAGES=#polly-$(LLVM_VERSION).src.tar.xz clang-tools-extra-$(LLVM_VERSION).src.tar.xz compiler-rt-$(LLVM_VERSION).src.tar.xz
+PACKAGES=$(MINIMUM_LLVM_PACKAGES) $(EXTRA_PACKAGES) cmake-$(LLVM_VERSION).src.tar.xz
 BACKENDS="all"  #"X86;ARM;RISCV"
 TESTS="test" #"notest"
-EXTRAS="extra" #"noextra"
-EXTRA_CMAKE_OPTIONS="" 
+EXTRAS="extra"
+EXTRA_CMAKE_OPTIONS=# "-DLLVM_INCLUDE_TESTS=OFF -DLLVM_INCLUDE_BENCHMARKS=OFF " 
 LLVM_URL=https://github.com/llvm/llvm-project/releases/download/llvmorg-
 CLANG_ADDR=clang-$(LLVM_VERSION).src.tar.xz
 
@@ -17,6 +17,9 @@ archive:
 	if test -e $@/llvm-$(LLVM_VERSION).src.tar.xz ; then mv archive/* ./ ; fi
 
 llvm-$(LLVM_VERSION).src.tar.xz:
+	wget -4 $(LLVM_URL)$(LLVM_VERSION)/$@
+
+cmake-$(LLVM_VERSION).src.tar.xz:
 	wget -4 $(LLVM_URL)$(LLVM_VERSION)/$@
 
 clang-$(LLVM_VERSION).src.tar.xz:
