@@ -80,13 +80,6 @@ if ! test -e llvm-${llvmVersion}.src ; then
 fi
 ln -s llvm-${llvmVersion}.src src 
 
-# Decide the type of build
-if test "$2" == "debug" ; then
-  CMAKE_OPTIONS="-DCMAKE_BUILD_TYPE=RelWithDebInfo ${CMAKE_OPTIONS} "
-else
-  CMAKE_OPTIONS="-DCMAKE_BUILD_TYPE=Release ${CMAKE_OPTIONS}"
-fi
-
 # Create the directory where we are going to install LLVM
 mkdir -p $installDir ;
 
